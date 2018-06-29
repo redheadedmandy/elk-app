@@ -1,0 +1,10 @@
+
+$ cat .gitignore
+# Created by https://www.gitignore.io/api/MY_API_NAME
+
+#!! ERROR: my_api_name is undefined. Use list command to see defined gitignore types !!#
+
+
+# End of https://www.gitignore.io/api/MY_API_NAME
+/node_modules/*
+/dist/*
