@@ -12,6 +12,10 @@ import vueResource from 'vue-resource'
 import 'vue-event-calendar/dist/style.css' //^1.1.10, CSS has been extracted as one file, so you can easily update it.
 import vueEventCalendar from 'vue-event-calendar'
 import { VueHammer } from 'vue2-hammer'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+ 
+Vue.use(Vuetify)
 
 Vue.use(VueHammer)
 Vue.use(vueEventCalendar, {locale: 'en'})

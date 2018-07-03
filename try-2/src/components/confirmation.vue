@@ -1,6 +1,6 @@
 <template>
   <div class="confirmation">
-    <div v-for="step in steps.slice().reverse()" class="confirm">
+    <div v-for="step in steps" class="confirm">
           <h3 id="step1"><i></i> {{step.kind}} {{step.coName}}</h3>
         </div>
 
@@ -80,7 +80,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.content-container {
+/*.content-container {
 			position: relative;
 			padding: 50px;
 			background: #FDFDFD;
@@ -101,5 +101,5 @@ export default {
 			position: absolute;
 			top: 150px;
 			width: calc(100% - 85px);
-		}
+		}*/
 </style>

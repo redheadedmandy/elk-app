@@ -1,42 +1,75 @@
 <template>
-  <div class="progress-steps">
-    	<nav class="form-steps">
-            <div class="form-steps__item form-steps__item--active">
-              <div class="form-steps__item-content">
-                <span class="form-steps__item-icon">1</span>
-                <span class="form-steps__item-text">Stops</span>
-              </div>
+  <div>
+    <v-stepper v-model="e1">
+      <v-stepper-header>
+        <template v-for="n in steps">
+          <v-stepper-step
+            :complete="e1 > n"
+            :key="`${n}-step`"
+            :step="n"
+          >
+            Step {{ n }}
+          </v-stepper-step>
 
-            </div>
-            <div class="form-steps__item">
-              <div class="form-steps__item-content">
-                <span class="form-steps__item-icon">2</span>
-                <span class="form-steps__item-line"></span>
-                <span class="form-steps__item-text">Contact</span>
-              </div>
-            </div>
-            <div class="form-steps__item">
-              <div class="form-steps__item-content">
-                <span class="form-steps__item-icon">3</span>
-                <span class="form-steps__item-line"></span>
-                <span class="form-steps__item-text">Load Details</span>
-              </div>
-            </div>
-            <div class="form-steps__item">
-              <div class="form-steps__item-content">
-                <span class="form-steps__item-icon">4</span>
-                <span class="form-steps__item-line"></span>
-                <span class="form-steps__item-text">Review</span>
-              </div>
-            </div>
-          </nav>
+          <v-divider
+            v-if="n !== steps"
+            :key="n"
+          ></v-divider>
+        </template>
+      </v-stepper-header>
+
+      <v-stepper-items>
+        <v-stepper-content
+          v-for="n in steps"
+          :key="`${n}-content`"
+          :step="n"
+        >
+          <v-card
+            class="mb-5"
+            color="grey lighten-1"
+            height="200px"
+          ></v-card>
+
+          <v-btn
+            color="primary"
+            @click="nextStep(n)"
+          >
+            Continue
+          </v-btn>
+
+          <v-btn flat>Cancel</v-btn>
+        </v-stepper-content>
+      </v-stepper-items>
+    </v-stepper>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: 'ProgressSteps'
+  name: 'ProgressSteps',
+  data () {
+      return {
+        e1: 1,
+        steps: 6
+      }
+    },
+    watch: {
+      steps (val) {
+        if (this.e1 > val) {
+          this.e1 = val
+        }
+      }
+    },
+
+    methods: {
+      nextStep (n) {
+        if (n === this.steps) {
+          this.e1 = 1
+        } else {
+          this.e1 = n + 1
+        }
+      }
+    }
 }
 </script>
 
@@ -156,4 +189,28 @@ export default {
 			padding-left: 15px;
 			padding-right: 15px;
 		}
+
+		.v-stepper__step--active > .v-stepper__step__step {
+			background-color: #5BB0FF;
+			color: white;
+		}
+		.v-stepper__step--complete > .v-stepper__step__step {
+			background-color: #55ED99;
+			color: white;
+			border: 2px solid #55ED99;
+		}
+
+		.v-stepper__step__step {
+			border: 2px solid #5BB0FF;
+			margin-bottom: -0.5px;
+		}
+/*
+		.v-stepper__step__step {
+			background: #5BB0FF;
+		  color: white;
+		  display: block;
+		  border-radius: 100%;
+		  text-align: center;
+		  vertical-align: middle;
+		}*/
 </style>

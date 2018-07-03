@@ -1,6 +1,6 @@
 <template>
   <div class="pagehead">
-    <div class="page-head map-head container">
+    <div class="my-page-head map-head container">
         <h1 class="page-title" id="map-title">Map</h1>
       </div>
   </div>
