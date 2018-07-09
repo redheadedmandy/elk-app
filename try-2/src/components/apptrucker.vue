@@ -1,17 +1,31 @@
 <template>
-
+    <div class="a-wrapper">
+      <sidebar-trucker/>
+      <div class="container-fluid">
+        <top-nav/>
+        <mob-nav/>
+        <div class="container-fluid">
+          <page-head/>
           <router-view></router-view>
-
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar'
+import SidebarTrucker from '@/components/sidebartrucker'
 import TopNav from '@/components/TopNav'
 import MobNav from '@/components/MobNav'
 import PageHead from '@/components/PageHead'
 
 export default {
-  name: 'App'
+  name: 'Trucker',
+  components: {
+    SidebarTrucker,
+    TopNav,
+    MobNav,
+    PageHead
+  }
 }
 </script>
 

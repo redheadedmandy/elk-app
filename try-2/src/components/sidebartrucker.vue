@@ -8,20 +8,14 @@
 
                 <ul class="list-unstyled components">
                     <li>
-                        <router-link to="/loadlist">
+                        <router-link to="/loads">
                             <i class="icon-cubes"></i>
                             Loads
                         </router-link>
                         
-                        <router-link to="/drivers/list">
+                        <router-link to="/dash">
                             <i class="icon-users"></i>
-                            Drivers
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/add-load/contact">
-                            <i class="icon-cog"></i>
-                            Add Load
+                            Trip
                         </router-link>
                     </li>
                 </ul>
@@ -33,7 +27,7 @@
 <script>
     import "../assets/logo.png"
 export default {
-  name: 'Sidebar'
+  name: 'SidebarTrucker'
 }
 </script>
 

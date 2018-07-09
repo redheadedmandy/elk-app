@@ -1,7 +1,15 @@
 <template>
-
+    <div class="a-wrapper">
+      <sidebar/>
+      <div class="container-fluid">
+        <top-nav/>
+        <mob-nav/>
+        <div class="container-fluid">
+          <page-head/>
           <router-view></router-view>
-
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -11,7 +19,13 @@ import MobNav from '@/components/MobNav'
 import PageHead from '@/components/PageHead'
 
 export default {
-  name: 'App'
+  name: 'Dispatch',
+  components: {
+    Sidebar,
+    TopNav,
+    MobNav,
+    PageHead
+  }
 }
 </script>
 

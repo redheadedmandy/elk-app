@@ -8,7 +8,6 @@
             :key="`${n}-step`"
             :step="n"
           >
-            Step {{ n }}
           </v-stepper-step>
 
           <v-divider
@@ -27,17 +26,16 @@
           <v-card
             class="mb-5"
             color="grey lighten-1"
-            height="200px"
-          ></v-card>
+            height="200px"          
+            >{{stepName}} {{content[0].locations[e1-1]}} </v-card>
+
 
           <v-btn
-            color="primary"
+            color="#5BB0FF"
             @click="nextStep(n)"
           >
             Continue
           </v-btn>
-
-          <v-btn flat>Cancel</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -45,12 +43,34 @@
 </template>
 
 <script>
+import JQuery from 'jquery'
+let $ = JQuery
+
 export default {
   name: 'ProgressSteps',
   data () {
       return {
         e1: 1,
-        steps: 6
+        steps: 1,
+        stepName: "Arrived at ",
+        content: [
+        {
+        "locations": [
+        		"Staunton, VA",
+        		"Staunton, VA",
+        		"Verona, VA",
+        		"Verona, VA",
+        		"Harrisonburg, VA",
+        		"Harrisonburg, VA",
+        		"Elkton, VA",
+        		"Elkton, VA",
+        		"Herndon, VA",
+        		"Herndon, VA",
+        		"Fairfax, VA",
+        		"Fairfax, VA"
+        		]
+    	}
+        ]
       }
     },
     watch: {
@@ -58,9 +78,19 @@ export default {
         if (this.e1 > val) {
           this.e1 = val
         }
+      },
+      e1 (val) {
+      	if ((val-1) % 2 == 0) {
+			this.stepName = "Arrived at "
+		}
+		if ((val-1) % 2 == 1) {
+			this.stepName = "Unloaded at "
+		} 
+		if (val === 2) {
+			this.stepName = "Loaded at "
+		} 
       }
     },
-
     methods: {
       nextStep (n) {
         if (n === this.steps) {
@@ -69,7 +99,14 @@ export default {
           this.e1 = n + 1
         }
       }
-    }
+    },
+    mounted() {
+// 	$.post("https://fleetr-208415.appspot.com/get-current-load.php")
+// 	.done(response => {this.content = JSON.parse(response);
+// 		this.steps = JSON.parse(response).length
+		this.steps = this.content[0].locations.length;
+	}
+// }
 }
 </script>
 

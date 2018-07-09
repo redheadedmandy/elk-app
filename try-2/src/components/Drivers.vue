@@ -28,5 +28,6 @@ export default {
 .btn-group.tools {
 	position: absolute;
 	right: 150px;
+  z-index: 10;
 }
 </style>

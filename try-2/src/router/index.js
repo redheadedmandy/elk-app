@@ -22,63 +22,86 @@ import RadialProgressBar from 'vue-radial-progress'
 import RadialProgress from '@/components/radialProgress'
 import loadItem from '@/components/loadItem'
 import Confirmation from '@/components/confirmation'
+import Login from "@/components/login"
+import Trucker from "@/components/apptrucker"
+import Dispatch from "@/components/appdispatch"
+import LoadList from "@/components/loadlist"
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      components: { 
-      	Sidebar,
-	    TopNav,
-	    MobNav,
-	    PageHead
-	      	}
+      path: '/'
     },
     {
-      path: '/dash',
-      component: Dash
+      path: '/login',
+      component: Login
     },
     {
-      path: '/loads',
-      component: Loads
-    },
-    {
-      path: '/drivers',
-      component: Drivers,
+      path: '/trucker',
+      component: Trucker,
       children: [
-	      {
-	      	path: 'calendar',
-	      	component: Calendar
-	      },
-	      {
-	      	path: 'list',
-	      	component: List
-	      }
-      ]
+			    {
+			      path: '/loads',
+			      component: Loads
+			    },
+			    {
+			    	path: '/loads/current',
+			    	component: Details
+			    },
+			    {
+			      path: '/dash',
+			      component: Dash
+			    },
+      		]
     },
     {
-      path: '/add-load',
-      component: AddLoad,
+      path: '/dispatch',
+      component: Dispatch,
       children: [
-	      {
-	      	path: 'stops',
-	      	component: Stops
-	      },
-	      {
-	      	path: 'contact',
-	      	component: Contact
-	      },
-	      {
-	      	path: 'details',
-	      	component: Details
-	      },
-	      {
-	      	path: 'review',
-	      	component: Review
-	      }
-      ]
-    }
+      			{
+			      path: '/drivers',
+			      component: Drivers,
+			      children: [
+				      {
+				      	path: 'calendar',
+				      	component: Calendar
+				      },
+				      {
+				      	path: 'list',
+				      	component: List
+				      }
+			      ]
+			    },
+			    {
+			      path: '/loadlist',
+			      component: LoadList
+			    },
+			    {
+			      path: '/add-load',
+			      component: AddLoad,
+			      children: [
+				      {
+				      	path: 'stops',
+				      	component: Stops
+				      },
+				      {
+				      	path: 'contact',
+				      	component: Contact
+				      },
+				      {
+				      	path: 'details',
+				      	component: Details
+				      },
+				      {
+				      	path: 'review',
+				      	component: Review
+				      }
+      					]
+    			}
+      			]
+    },
+    
   ]
 })

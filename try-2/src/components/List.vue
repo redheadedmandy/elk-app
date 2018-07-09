@@ -2,21 +2,30 @@
   <div class="list">
     <div class="container content-container">
         <div class="row">
+          <!-- v-show="driver.stops == 2" -->
           <div class="col-sm-2 filterpic">
             <radial-progress></radial-progress>
           </div>
           <div class="col-sm-2">
-            <h3><strong>Greg Coffey</strong></h3>
-            <h4 class="greentext"><strong>Driving</strong></h4>
-            <h5>En route to shipper</h5>
-            <h6>Updated status 14:53</h6>
+            <h3><strong>driver.name</strong></h3>
+            <h4 class="greentext"><strong>driver.status</strong></h4>
+            <h5>driver.currentStep</h5>
+            <h6>driver.statusUpdateTime</h6>
           </div>
           <div class="col-sm">
             <div class="row">
               <div class="col-sm">
                 <h4 class="greentext"><i class="icon-asset-5"></i> 
-                Staunton, VA
-                <i class="icon-right"></i> Herndon, VA | Elk Logistics</h4>
+                driver.pickupCity | driver.pickupShipperName
+                <i class="icon-right"></i> driver.deliveryCity | driver.deliveryShipperName</h4>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm">
+                <h4 class=""><i class="icon-asset-5"></i> 
+                driver.pickupCity | driver.pickupShipperName
+                <i class="icon-right"></i> driver.deliveryCity | driver.deliveryShipperName</h4>
               </div>
             </div>
           </div>
@@ -45,7 +54,7 @@
                     <h4>Staunton, VA</h4>
                   </td>
                   <td class="borderless">
-                    <h2><i class="icon-right"></i></h2>
+                    <h2><i class="icon-dot-3"></i></h2>
                   </td>
                   <td class="borderless">
                     <h4>Herndon, VA</h4>

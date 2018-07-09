@@ -8,7 +8,8 @@
                   <label for="shipName">Shipper Name</label>
                 <vue-simple-suggest
                     :list="simpleSuggestionList"
-                    :filter-by-query="true" id="shipName" placeholder="Start typing a name" autocomplete="autofill-myself"></vue-simple-suggest>
+                    :filter-by-query="true" id="shipName" placeholder="Start typing a name" autocomplete="autofill-myself">
+                    </vue-simple-suggest>
                 </div>
             <div class="form-group">
                   <label for="locationPickup">Location</label>
@@ -146,6 +147,10 @@ export default {
         }
     }
 };
+
+function addNewShipper() {
+  this.append('<div class="form-check"><input class="form-check-input" type="checkbox" v-model="pickupChecked" id="apptCheck1"><label class="form-check-label" for="apptCheck1">Uh oh! Unknown shipper. Would you like to save a new one?</label></div>')
+}
 // get(input location => geocode back to coordinates? => send coordinates to server, return location notes; on location notes change, enable save notes checkbox) x 2
 
 // get(arr(brokerCompany.name))

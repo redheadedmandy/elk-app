@@ -25,6 +25,7 @@
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vue-simple-suggest": "^1.7.2",
+    "vue-tabs-component": "^1.4.0",
     "vue2-hammer": "^1.0.6",
     "vuetify": "^1.1.1"
   },

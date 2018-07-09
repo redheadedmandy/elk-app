@@ -6,36 +6,23 @@
             <h5>Current</h5>
             <span class="next float-right">
               <h5>
-                <a href="#" class="unlink">
+                <router-link to="/loads/current">
                   <i class="icon-right"></i>
-                </a>
+                </router-link>
               </h5>
             </span>
             <hr class="underline">
           </div>
         </div>
-        <div class="row">
+        <div class="row more-content">
           <div class="col-1">
-            <img src="../assets/trail.svg" style="height: 75%;"/>
+            <img src="../assets/trail.svg" style="height: 75%; max-height: 250px;"/>
+          </div>
+          <div class="col-1">
           </div>
           <div class="col">
-            <h6 class="light-text low-line">Pickup</h6>
-            <h6><strong>Staunton, VA</strong></h6>
-            <h6><strong>May 30, 2018</strong></h6>
-            <h6>08:00 appt</h6>
-            <br>
-            <h6 class="light-text low-line">Delivery</h6>
-            <h6><strong>Pittsburgh, PA</strong></h6>
-            <h6><strong>May 30, 2018</strong></h6>
-            <h6>08:00 appt</h6>
-          </div>
-          <div class="col mid-line">
-            <br>
-            <h6 class="light-text space"><i class="icon-building-filled iconspace"></i>Elk Logistics</h6>
-            <h6 class="light-text space"><i class="icon-cubes iconspace"></i>Toys</h6>
-            <h6 class="light-text space"><i class="icon-asset-20 iconspace"></i>30,000 lbs</h6>
-            <h6 class="light-text space"><i class="icon-money iconspace"></i>$1200 RtT</h6>
-            <h6 class="light-text space"><i class="icon-asset-14 iconspace"></i>459 miles</h6>
+            <slot name="pickup-item"/>
+            <slot name="delivery-item"/>
           </div>
         </div>
       </div>
@@ -44,13 +31,33 @@
 </template>
 
 <script>
+import JQuery from 'jquery'
+let $ = JQuery
+
 import '../assets/trail.svg'
+import deliveryItem from '@/components/deliveryItem'
 export default {
-  name: 'loadItem'
+  name: 'loadItem',
+  components: {deliveryItem},
+  data () {
+    return {
+      items: 1,
+      content: []
+    }
+  },
+  mounted() {
+  $.post("https://fleetr-208415.appspot.com/get-current-load.php")
+  .done(response => {this.content = JSON.parse(response);
+    this.items = JSON.parse(response).length
+  })
+}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.more-content {
+  height: 230px;
+  overflow: scroll;
+}
 </style>

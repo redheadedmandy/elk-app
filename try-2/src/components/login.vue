@@ -7,8 +7,7 @@
       <div class="float-right login-group">
         <h4 class="logon-head">OnBoard</h4>
         <h5 class="center">Welcome back! Log back in to your account.</h5>
-            <form class="login-form">
-              <input type="hidden" name="rewardspace" id="rewardspace" class="rewardspace">
+            <form class="login-form" id="loginform">
               <div class="form-group space">
                 
                 <label class="float-label" for="username">Username</label><input type="username" name="username" id="username" class="form-control" >
@@ -19,7 +18,7 @@
               </div>
               <a href="forgot-password.html" class="forgot-pass-link">Forgot password?</a>
               <div class="form-group"> 
-                <button type="submit" class="btn btn-primary float-right">Log in</button>
+                <button type="submit" class="btn btn-primary float-right" id="login">Log in</button>
               </div>
             </form>
         </div>
@@ -27,6 +26,9 @@
 </template>
 
 <script>
+    import JQuery from 'jquery'
+let $ = JQuery
+
 var employees;
 var employee;
 var currentLoads;
@@ -37,84 +39,27 @@ var currentPickupLocation;
 var currentDropoffLocation;
 
 // Gets employees from database
-$(document).ready(function() {
-        $.post("get-employee.php")
-        .done(function(data){
-                employees = JSON.parse(data);
-        });
-        $.post("get-current-load.php")
-        .done(function(data){
-                currentLoads = JSON.parse(data);
-        });
-        $.post("get-current-pickup-locations.php")
-        .done(function(data){
-                currentPickupLocations = JSON.parse(data);
-        });
-        $.post("get-current-dropoff-locations.php")
-        .done(function(data){
-                currentDropoffLocations = JSON.parse(data);
-        });
-});
-
-function getCurrentLoad()
-{
-        $.each(currentLoads, function(){
-                if (employee.employee_id == this.trucker_id)
-                {
-                        currentLoad = this;
-                }
-        });
-
-}
-
-function getCurrentLocations()
-{
-        $.each(currentPickupLocations, function(){
-                if (currentLoad.pickup_location_id == this.location_id)
-                {
-                        currentPickupLocation = this;
-                }
-        });
-        $.each(currentDropoffLocations, function(){
-                if (currentLoad.dropoff_location_id == this.location_id)
-                {
-                        currentDropoffLocation = this;
-                }
-        });
-}
-
+var usernameInput = $('#username').val();
+var passwordInput = $('#password').val();
 // Handles 'enter' being pressed
-$(document).keypress(function(e) {
-        if (e.which == 13)
-        {
-                $('#inputID').blur();
-                validateData(employees);
-        }
+$(function () {
 
-});
 
-// Validates the employee's credentials
-function validateData($employees)
-{
-        var validate = false;
-        var pass = null;
-        $.each($employees, function(){
-                if ($("#username").val().toLowerCase() == this.employee_id.toLowerCase())
-                {
-                        pass = this.password;
-                        employee = this;
-                }
-        });
-        if ($("#password").val() == pass) {
-                validate = true;
-        }
-        if (validate == true)
-        {
-                if (employee.employee_id == 1)
+$("#loginform").on('submit', function (e) {
+    e.preventDefault();
+    console.log($('#loginform').serialize());
+     $.ajax({
+            type: 'post',
+            url: 'https://fleetr-208415.appspot.com/',
+            data: $('#loginform').serialize(),
+                        success: function (data) {
+                var employeeId = data;
+                console.log(employeeId);
+                    if (employeeId == 1)
                 {
                         adminScreen();
                 }
-                else if (employee.employee_id == 2)
+                else if (employeeId == 2)
                 {
                         dispatcherScreen();
                 }
@@ -122,27 +67,39 @@ function validateData($employees)
                 {
                         truckerScreen();
                 }
+            }
+          });
 
-        }
-        else
-        {
-                alert("Wrong Credientials");
-        }
-}
 
-// Handles the submit button
-$("#submit").click(function(){
-        alert("button");
-});
+    // $.post("https://fleetr-208415.appspot.com/", $("#loginform").serialize() ).done(function(data){
+    //                 employeeId = data;
+    //                 console.log(data);
+    //                 if (employeeId == 1)
+    //             {
+    //                     adminScreen();
+    //             }
+    //             else if (employeeId == 2)
+    //             {
+    //                     dispatcherScreen();
+    //             }
+    //             else
+    //             {
+    //                     truckerScreen();
+    //             }
+    //         });
+        });
+
+})        
 
 function truckerScreen()
 {
-        document.write("Trucker screen");
+        // similar behavior as an HTTP redirect
+    window.location.replace("http://localhost:8080/#/trucker");
 }
 
 function dispatcherScreen()
 {
-        document.write("Dispatcher screen");
+        window.location.replace("http://localhost:8080/#/dispatch");
 }
 
 function adminScreen()
